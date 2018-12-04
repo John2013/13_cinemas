@@ -6,7 +6,9 @@ from bs4 import BeautifulSoup
 
 
 def fetch_afisha_page():
-    return requests.get('http://www.afisha.ru/msk/schedule_cinema/').content
+    return requests.get(
+        'https://www.afisha.ru/cherepovec/schedule_cinema/'
+    ).content
 
 
 def parse_afisha_list(raw_html):
