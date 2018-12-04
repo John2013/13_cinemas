@@ -21,13 +21,16 @@ def parse_afisha_list(raw_html):
 
 
 def fetch_movie_info(movie_title):
-    kinopoisk_html = requests.get(
+    return requests.get(
         'https://www.kinopoisk.ru/index.php',
         {
             'kp_query': movie_title
         }
     ).content
-    soup = BeautifulSoup(kinopoisk_html, features="html.parser")
+
+
+def parse_movie_info(raw_html):
+    soup = BeautifulSoup(raw_html, features="html.parser")
     rating_tag = soup.select_one('div.element.most_wanted div.rating')
     none_int = 0
     if (rating_tag is None):
@@ -60,7 +63,8 @@ if __name__ == '__main__':
 
     movies = []
     for title in titles:
-        rating, votes_cnt = fetch_movie_info(title)
+        movie_html = fetch_movie_info(title)
+        rating, votes_cnt = parse_movie_info(movie_html)
         movies.append({
             'title': title,
             'rating': rating,
