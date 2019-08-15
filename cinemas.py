@@ -13,7 +13,7 @@ def fetch_afisha_page():
 
 def parse_afisha_list(raw_html):
     soup = BeautifulSoup(raw_html, features="html.parser")
-    names_tags = soup.findAll('h3', class_='card__title')
+    names_tags = soup.findAll('h3', class_=re.compile(r'cardTitle'))
     return list(
         map(
             lambda tag: tag.string.strip().strip('«»'),
